@@ -22,11 +22,21 @@
 * **`src/components/` & `src/screens/`**
   用的 Ink 框架写的 React 命令行 UI。如果好奇像打字机一样带有进度条的复杂动画在命令行里怎么防闪烁，这里的组件逻辑是满分作业。
 
-* **`src/utils/messages.ts` & 各个 `prompt.ts`**
-  Prompt 工程大抄本。搜一搜各个目录里的提示词组装逻辑，还能学到他们的杀手锏 Context Collapsing —— 内容超载时怎么聪明地修剪冗余的历史思考过程。
+## 核心架构拆解文档 (深度研究建议必读)
 
-* **`src/utils/permissions/`**
-  防止模型越权搞破坏的模块。除了常规的黑白名单过滤，还可以留意一下里面的 `yoloClassifier.ts`，他们为了支持 `--yes` 自动执行，在本地挂了个轻量分类器，执行高危命令前会过一遍 AI 判断。
+为了方便学习，我们在 `docs/` 目录下对 Claude Code 最核心的八大黑科技做了极致详尽的代码剖析和解读，强烈建议去翻一翻：
+
+1. [`01_Architecture.md`](./docs/01_Architecture.md)：React TUI 无闪烁渲染与主循环事件流
+2. [`02_Prompts_And_Context.md`](./docs/02_Prompts_And_Context.md)：Context Collapsing 上下文抗爆炸折叠算法
+3. [`03_Tools_Sandbox.md`](./docs/03_Tools_Sandbox.md)：基于 Node PTY 的沙盒工具调用与进程隔离
+4. [`04_Security_Permissions.md`](./docs/04_Security_Permissions.md)：高危操作时的拦截网与 Yolo 轻量分类器机制
+5. [`05_LLM_API_Services.md`](./docs/05_LLM_API_Services.md)：退避重试网络通讯与端到端统计 Telemetry
+6. [`06_Directory_Reference.md`](./docs/06_Directory_Reference.md)：找补丁专用的代码目录全局字典
+7. [`07_Original_System_Prompts.md`](./docs/07_Original_System_Prompts.md)：模型原厂内部组装系统提示词的满分打样
+8. [`08_MCP_Integration.md`](./docs/08_MCP_Integration.md)：基于原生 Model Context Protocol 的外接服务大总管
+9. [`09_Memory_And_Storage.md`](./docs/09_Memory_And_Storage.md)：利用 FileRead/Write 实现跨终端长期记忆（Memdir / Coworker 索引）
+
+* 以上文档的深入理解可以极大提升你个人构建甚至克隆 "Devin" 级工程的能力。
 
 ## 正确的魔改姿势
 如果你提取这个是想破解或加上自己的功能，**不要试图在这个仓库里直接修改并强行编译**，缺失的碎文件和第三方依赖太多，会卡在无限修 Bug 上。
